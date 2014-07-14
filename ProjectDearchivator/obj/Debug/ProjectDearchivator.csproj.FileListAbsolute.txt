@@ -1,5 +1,0 @@
-C:\tcb\src\ProjectArchivator\ProjectDearchivator\bin\Debug\ConsoleApplication1.exe
-C:\tcb\src\ProjectArchivator\ProjectDearchivator\bin\Debug\ConsoleApplication1.pdb
-C:\tcb\src\ProjectArchivator\ProjectDearchivator\obj\Debug\ResolveAssemblyReference.cache
-C:\tcb\src\ProjectArchivator\ProjectDearchivator\obj\Debug\ConsoleApplication1.exe
-C:\tcb\src\ProjectArchivator\ProjectDearchivator\obj\Debug\ConsoleApplication1.pdb

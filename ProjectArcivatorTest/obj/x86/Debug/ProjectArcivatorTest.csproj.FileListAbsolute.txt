@@ -1,8 +1,0 @@
-C:\tcb\src\ProjectArchivator\ProjectArcivatorTest\bin\Debug\ProjectArcivatorTest.exe.config
-C:\tcb\src\ProjectArchivator\ProjectArcivatorTest\bin\Debug\ProjectArcivatorTest.exe
-C:\tcb\src\ProjectArchivator\ProjectArcivatorTest\bin\Debug\ProjectArcivatorTest.pdb
-C:\tcb\src\ProjectArchivator\ProjectArcivatorTest\bin\Debug\ProjectArchivator.dll
-C:\tcb\src\ProjectArchivator\ProjectArcivatorTest\bin\Debug\ProjectArchivator.pdb
-C:\tcb\src\ProjectArchivator\ProjectArcivatorTest\obj\x86\Debug\ResolveAssemblyReference.cache
-C:\tcb\src\ProjectArchivator\ProjectArcivatorTest\obj\x86\Debug\ProjectArcivatorTest.exe
-C:\tcb\src\ProjectArchivator\ProjectArcivatorTest\obj\x86\Debug\ProjectArcivatorTest.pdb
