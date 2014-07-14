@@ -1,0 +1,5 @@
+C:\tcb\src\ProjectArchivator\ProjectArchivator\bin\Debug\ProjectArchivator.dll
+C:\tcb\src\ProjectArchivator\ProjectArchivator\bin\Debug\ProjectArchivator.pdb
+C:\tcb\src\ProjectArchivator\ProjectArchivator\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\tcb\src\ProjectArchivator\ProjectArchivator\obj\x86\Debug\ProjectArchivator.dll
+C:\tcb\src\ProjectArchivator\ProjectArchivator\obj\x86\Debug\ProjectArchivator.pdb

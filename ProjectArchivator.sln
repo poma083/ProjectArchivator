@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectArchivator", "ProjectArchivator\ProjectArchivator.csproj", "{131F5404-4B35-4D5D-A3A2-FAEC8D9FB2F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectArcivatorTest", "ProjectArcivatorTest\ProjectArcivatorTest.csproj", "{724C1865-05D6-4DFE-A840-1FAC9CE4EDC1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectDearchivator", "ProjectDearchivator\ProjectDearchivator.csproj", "{393D6C3D-E942-4AB4-B7A0-F60E1F482F13}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{131F5404-4B35-4D5D-A3A2-FAEC8D9FB2F8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{131F5404-4B35-4D5D-A3A2-FAEC8D9FB2F8}.Debug|x86.Build.0 = Debug|Any CPU
+		{131F5404-4B35-4D5D-A3A2-FAEC8D9FB2F8}.Release|x86.ActiveCfg = Release|x86
+		{131F5404-4B35-4D5D-A3A2-FAEC8D9FB2F8}.Release|x86.Build.0 = Release|x86
+		{724C1865-05D6-4DFE-A840-1FAC9CE4EDC1}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{724C1865-05D6-4DFE-A840-1FAC9CE4EDC1}.Debug|x86.Build.0 = Debug|Any CPU
+		{724C1865-05D6-4DFE-A840-1FAC9CE4EDC1}.Release|x86.ActiveCfg = Release|x86
+		{724C1865-05D6-4DFE-A840-1FAC9CE4EDC1}.Release|x86.Build.0 = Release|x86
+		{393D6C3D-E942-4AB4-B7A0-F60E1F482F13}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{393D6C3D-E942-4AB4-B7A0-F60E1F482F13}.Debug|x86.Build.0 = Debug|Any CPU
+		{393D6C3D-E942-4AB4-B7A0-F60E1F482F13}.Release|x86.ActiveCfg = Release|x86
+		{393D6C3D-E942-4AB4-B7A0-F60E1F482F13}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
