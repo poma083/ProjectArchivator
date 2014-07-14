@@ -10,8 +10,8 @@ namespace ProjectArchivator
     {
         [ConfigurationProperty("recepientCert", IsKey = true, IsRequired = true)]
         public string RecepientCert { get { return this["recepientCert"] as string; } }
-        [ConfigurationProperty("sourceFolder", IsKey = true, IsRequired = true)]
-        public string SourceFolder { get { return this["sourceFolder"] as string; } }
+        [ConfigurationProperty("source", IsKey = true, IsRequired = true)]
+        public string Source { get { return this["source"] as string; } }
         [ConfigurationProperty("systemGuid", IsKey = true, IsRequired = true)]
         public string SystemGuid { get { return this["systemGuid"] as string; } }
         

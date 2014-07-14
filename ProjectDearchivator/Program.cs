@@ -33,8 +33,10 @@ namespace ConsoleApplication1
         }
         static void Main(string[] args)
         {
+            ProjectArchivatorConfig cfg = ProjectArchivatorConfig.GetConfig();
+
             // Читаем сертификат из файла.
-            byte[] rawData = File.ReadAllBytes("01f7027dd70105021a4a.cer");
+            byte[] rawData = File.ReadAllBytes(cfg.Enveroument.Paths["cert"].Value + "\\" + cfg.RecepientCert);
             X509Certificate2 certToFind = new X509Certificate2();
             certToFind.Import(rawData);
 
@@ -69,18 +71,19 @@ namespace ConsoleApplication1
             }
 
             byte[] fileContent = null;
-            using (FileStream fs = new FileStream("zr_(1).gif", FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (FileStream fs = new FileStream(cfg.Enveroument.Paths["projects"].Value + "\\" + cfg.Source, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
                 fileContent = new byte[fs.Length];
                 fs.Read(fileContent, 0, (int)fs.Length);
             }
             int i = 0;
             byte[] guidByte = new byte[16];
-            Guid sysGuid = new Guid("{7cf86e58-f578-4b76-8c9f-ac030674b264}");
-            Guid tmpGuid = new Guid("{7cf86e58-f578-4b76-8c9f-ac030674b264}");
+            Guid sysGuid = new Guid(cfg.SystemGuid);
+            Guid tmpGuid = new Guid(cfg.SystemGuid);
             byte[] lenByte = new byte[4];
             int archiveLength = 0;
             int position = fileContent.Length;
+            List<string> archFiles = new List<string>();
             while (true)
             {
                 i++;
@@ -98,10 +101,18 @@ namespace ConsoleApplication1
                 Array.Copy(fileContent, position - archiveLength, archiveContentEncrypted, 0, archiveLength);
                 position -= archiveLength;
                 byte[] archiveContent = X509Crypto.DecryptMsg(archiveContentEncrypted, new X509Certificate2Collection(ret));
-                using (FileStream fs = new FileStream(i.ToString() + ".7z", FileMode.Create))
+                Guid tmp = Guid.NewGuid();
+                archFiles.Add(tmp.ToString());
+                using (FileStream fs = new FileStream(cfg.Enveroument.Paths["src"].Value + "\\" + tmp.ToString() + ".7z", FileMode.Create))
                 {
                     fs.Write(archiveContent, 0, (int)archiveContent.Length);
                 }
+            }
+
+            Directory.SetCurrentDirectory(cfg.Enveroument.Paths["src"].Value);
+            foreach(string archive in archFiles){
+                _7ZipNativeContainer.SevenZipExtractArchive(0, 0, cfg.Enveroument.Paths["src"].Value + "\\" + archive + ".7z", true, true, false, cfg.Source, "myMPass", "");
+                File.Delete(cfg.Enveroument.Paths["src"].Value + "\\" + archive + ".7z");
             }
         }
     }

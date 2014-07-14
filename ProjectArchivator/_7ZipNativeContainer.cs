@@ -17,117 +17,10 @@ namespace ProjectArchivator
         [DllImport("7-zip32.dll")]
         static extern int SevenZip(uint hwnd, byte[] s7cmd, byte[] s7ResultOutput, uint dwSize);
 
-        [DllImport("7z.dll")]
-        static extern int SevenZipCreateArchive(uint hwnd, // parent window handle
-                                                string ArchiveFilename, // имя твоего архива 
-                                                string FileList, // список файлов для архивации через запятую
-                                                int CompressionLevel,   // 0 = none, 9=max СТЕПЕНЬ СЖАТИЯ
-                                                Boolean CreateSolidArchive, // solid = better compression for multiple files Непрерывный архив, да,нет
-                                                Boolean RecurseFolders,     // recurse folders? ВКЛЮЧАТЬ ПУТЬ К ИМЕНАМ АРХИВИРОВАННЫХ ФАЙЛОВ
-                                                Boolean ShowProgress,     // показывать встроенный индикатор                                 
-                                                IntPtr Callback // опционально callback ф-ция (ShowProgress должно быть False)
-                                                );
-
-
-        #region fields
-        uint hwnd = 0;
-        bool recurseFolders = true;
-        bool extractFullPaths = true;
-        bool showProgress = true;
-        uint callback = 0;
-        string extractBaseDir;
-        private string archiveFilename;
-        #endregion
-
-        #region props
-        public string FileList { get; set; }
-
-        public uint Hwnd
-        {
-            get
-            {
-                return hwnd;
-            }
-            set
-            {
-                hwnd = value;
-            }
-        }
-
-        public bool RecurseFolders
-        {
-            get
-            {
-                return recurseFolders;
-            }
-            set
-            {
-                recurseFolders = value;
-            }
-        }
-
-        public bool ExtractFullPaths
-        {
-            get
-            {
-                return extractFullPaths;
-            }
-            set
-            {
-                extractFullPaths = value;
-            }
-
-        }
-
-        public bool ShowProgress
-        {
-            get
-            {
-                return showProgress;
-            }
-            set
-            {
-                showProgress = value;
-            }
-        }
-        public uint Callback
-        {
-            get
-            {
-                return callback;
-            }
-            set
-            {
-                callback = value;
-            }
-        }
-        public string ExtractBaseDir
-        {
-            get
-            {
-                return extractBaseDir;
-            }
-            set
-            {
-                extractBaseDir = value;
-            }
-        }
-        public string ArchiveFilename
-        {
-            get
-            {
-                return archiveFilename;
-            }
-            set
-            {
-                archiveFilename = value;
-            }
-        }
-        private string RemoveQuotes(string s)
+        private static string RemoveQuotes(string s)
         {
             return s.Trim('\"');
         }
-        #endregion
 
         private static int SevenZipCommand(uint hwnd, string CommandLine, out string CommandOutput, uint MaxCommandOutputLen)
         {
@@ -137,17 +30,14 @@ namespace ProjectArchivator
             return Result;
         }
 
-        public int SevenZipExtractArchive()
+        public static int SevenZipExtractArchive(uint hwnd, uint callbackMethod, string sourceFileName, bool isExtractFullPaths, bool isRecursive, bool hideProgress, string baseDir, string password, string FileList)
         {
             int result = 0;
             string[] flist = FileList.Split(';');
 
-            if (callback != 0)
-                showProgress = false;
-
             string s7cmd;
 
-            if (extractFullPaths)
+            if (isExtractFullPaths)
             {
                 s7cmd = "x";
             }
@@ -156,14 +46,19 @@ namespace ProjectArchivator
                 s7cmd = "e";
             }
 
-            s7cmd = s7cmd + " " + archiveFilename + " " + " -o" + "\"" + extractBaseDir + "\"";
+            s7cmd = s7cmd + " " + sourceFileName + " " + " -o" + "\"" + baseDir + "\"";
 
-            if (recurseFolders)
+            if(!string.IsNullOrEmpty(password))
+            {
+                s7cmd += " -p" + password;
+            }
+
+            if (isRecursive)
             {
                 s7cmd = s7cmd + " -r";
             }
 
-            if (showProgress)
+            if (hideProgress)
             {
                 s7cmd = s7cmd + " -hide";
             }
@@ -172,14 +67,14 @@ namespace ProjectArchivator
             for (int i = 1; i < flist.Length; i++)
             {
                 s7cmd = s7cmd + " -i";
-                if (recurseFolders)
+                if (isRecursive)
                 {
                     s7cmd = s7cmd + " -r";
                 }
                 s7cmd = s7cmd + "!\"" + RemoveQuotes(flist[i]) + "!\"";
             }
 
-            SevenZipSetOwnerWindow(hwnd, callback);
+            SevenZipSetOwnerWindow(hwnd, callbackMethod);
 
             string s7ResultOutput = "";
 
@@ -204,7 +99,6 @@ namespace ProjectArchivator
             }
             return result;
         }
-
         public static int SevenZipCreateArchive(uint hwnd, uint callbackMethod, string targetFileName, ArchiveTypes type, CompressionLevel level, bool isSolid, bool isRecursive, bool hideProgress, bool encryptFileNames, string password, string[] filesToArchive)
         {
             int result = 0;
